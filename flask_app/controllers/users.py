@@ -24,6 +24,7 @@ def dashboard():
         return redirect("/")
     
     one_user = user.User.get_by_id(session["user_id"])
+    
     all_the_songs = song.Song.get_all_songs_with_user()
     return render_template("user_dashboard.html", user=one_user, all_the_songs=all_the_songs)
 
@@ -36,11 +37,13 @@ def login_user():
         return redirect("/")
     
     user_in_db = user.User.get_by_email(request.form["email"])
+    
     # password check if match
     pw_check = bcrypt.check_password_hash(user_in_db.password, request.form["password"])
     if not pw_check:
         flash("Invalid password.", "login")
         return redirect("/")
+    
     # store user into session
     session["user_id"] = user_in_db.id
     return redirect("/songs")  #! login successful
@@ -60,6 +63,7 @@ def register_user():
         return redirect("/")
     
     pw_hash = bcrypt.generate_password_hash(request.form["password"])
+    
     # post info saved into 'data' dict
     data = {
             "first_name": request.form["first_name"],
@@ -68,6 +72,7 @@ def register_user():
             "password": pw_hash,  # hash upon registration
         }
     user_id = user.User.save(data)
+    
     # store user into session
     session["user_id"] = user_id
     return redirect("/songs")  #! register successful
@@ -78,6 +83,8 @@ def register_user():
 def destroy():
     if "user_id" not in session:
         return redirect("/")
+    
     session.clear()
+    
     print("Session cleared")
     return redirect("/")
