@@ -35,7 +35,6 @@
                 <tr>
                     <td><a href="/songs/view/{{ one_song.id}}">{{ one_song.title }}</a></td>
                     <td>{{ one_song.artist }}</td>
-                    <td>{{ one_song.release_date.strftime("%B %-d, %Y") }}</td>
                     <td class="text-center">
                         {% if one_song.viewer.id == user.id: %}
                         <a href="/songs/delete/{{ one_song.id }}" class="p-2">Delete</a>
