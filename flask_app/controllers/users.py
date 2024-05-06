@@ -2,7 +2,7 @@ from flask import render_template, redirect, request, session, flash
 from flask_app import app
 from flask_app.models import song, user
 from flask_bcrypt import Bcrypt
-bcrypt = Bcrypt(app)  # creating object 'bcrypt' - made by invoking the function Bcrypt with our app as an argument
+bcrypt = Bcrypt(app)
 
 
 #! index
@@ -18,7 +18,7 @@ def home_page():
 
 
 #! dashboard page
-@app.get("/songs")
+@app.get("/dashboard")
 def dashboard():
     if "user_id" not in session:
         return redirect("/")
@@ -29,27 +29,7 @@ def dashboard():
     return render_template("user_dashboard.html", user=one_user, all_the_songs=all_the_songs)
 
 
-#! user log in
-@app.post("/user/login")
-def login_user():
-    # validate
-    if not user.User.validate_login(request.form):
-        return redirect("/")
-    
-    user_in_db = user.User.get_by_email(request.form["email"])
-    
-    # password check if match
-    pw_check = bcrypt.check_password_hash(user_in_db.password, request.form["password"])
-    if not pw_check:
-        flash("Invalid password.", "login")
-        return redirect("/")
-    
-    # store user into session
-    session["user_id"] = user_in_db.id
-    return redirect("/songs")  #! login successful
-
-
-#! user register
+#! post register
 @app.post("/user/register")
 def register_user():
     # validate
@@ -75,7 +55,27 @@ def register_user():
     
     # store user into session
     session["user_id"] = user_id
-    return redirect("/songs")  #! register successful
+    return redirect("/dashboard")
+
+
+#! post login
+@app.post("/user/login")
+def login_user():
+    # validate
+    if not user.User.validate_login(request.form):
+        return redirect("/")
+    
+    user_in_db = user.User.get_by_email(request.form["email"])
+    
+    # password check if match
+    pw_check = bcrypt.check_password_hash(user_in_db.password, request.form["password"])
+    if not pw_check:
+        flash("Invalid password.", "login")
+        return redirect("/")
+    
+    # store user into session
+    session["user_id"] = user_in_db.id
+    return redirect("/dashboard")
 
 
 #! user log out
