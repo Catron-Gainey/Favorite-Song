@@ -81,9 +81,7 @@ class User:
             song_info = {
                 "id": row_data["songs.id"],
                 "title": row_data["title"],
-                # "network": row_data["network"],
-                # "release_date": row_data["release_date"],
-                # "comments": row_data["comments"],
+                "artist": row_data["artist"],
                 "created_at": row_data["songs.created_at"],
                 "updated_at": row_data["songs.updated_at"],
             }
