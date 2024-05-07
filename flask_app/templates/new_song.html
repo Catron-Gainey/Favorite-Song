@@ -11,12 +11,12 @@
 
 <body>
     <div class="container-sm col-8">
-        <p class="mt-4 fs-2 fw-semibold">Recommend a <span class="fst-italic">New Song</span>.</p>
+        <p class="mt-4 fs-2 fst-italic">Add your Favorite <span class="fst-italic">Song</span>.</p>
 
         <div class="row mt-3">
             <div class="col-6 text-end"></div>
             <div class="col text-end">
-                <a href="/songs" class="p-2 m-4">TV Songs</a>
+                <a href="/dashboard" class="p-2 m-4">Favorite Songs List</a>
                 <a href="/destroy" class="p-2 m-4">Logout</a>
             </div>
         </div>
@@ -44,32 +44,12 @@
 
             <div class="row g-3 align-items-center mb-4">
                 <div class="col-3">
-                    <label for="network" class="col-form-label">Network:</label>
+                    <label for="artist" class="col-form-label">Artist:</label>
                 </div>
                 <div class="col-9">
-                    <input type="text" name="network" class="form-control border-black">
+                    <input type="text" name="artist" class="form-control border-black">
                 </div>
             </div>
-
-            <div class="row g-3 align-items-center mb-4">
-                <div class="col-3">
-                    <label for="release_date" class="col-form-label">Release Date:</label>
-                </div>
-                <div class="col-9">
-                    <input type="date" name="release_date" class="form-control border-black">
-                </div>
-            </div>
-
-            <div class="row g-3 align-items-center mb-4">
-                <div class="col-3">
-                    <label for="comments" class="col-form-label">Comments:</label>
-                </div>
-                <div class="col-9">
-                    <textarea name="comments" id="comments" cols="20" rows="3"
-                        class="form-control border-black"></textarea>
-                </div>
-            </div>
-
 
             <input type="submit" class="btn btn-lg btn-danger text-end text-capitalize d-grid" value="add">
         </form>

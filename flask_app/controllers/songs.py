@@ -4,7 +4,7 @@ from flask_app.models import song, user
 
 
 #! new song page
-@app.get("/songs/new")
+@app.route("/songs/new")
 def new_song():
     if "user_id" not in session:
         return redirect("/")
@@ -14,7 +14,7 @@ def new_song():
 
 
 #! create song post
-@app.post("/songs/create")
+@app.route("/songs/create", methods=['POST'])
 def create_song():
     if not song.Song.validate_song_info(request.form):
         return redirect("/songs/new")
@@ -22,16 +22,14 @@ def create_song():
     data = {
         "user_id": session["user_id"],
         "title": request.form["title"],
-        "network": request.form["network"],
-        "release_date": request.form["release_date"],
-        "comments": request.form["comments"],
+        "artist": request.form["artist"]
     }
     song.Song.save(data)
-    return redirect("/songs")
+    return redirect("/dashboard")
 
 
 #! view song page
-@app.get("/songs/view/<int:song_id>")
+@app.route("/songs/view/<int:song_id>")
 def view_song(song_id):
     if "user_id" not in session:
         return redirect("/")
@@ -41,7 +39,7 @@ def view_song(song_id):
 
 
 #! edit song page
-@app.get("/songs/edit/<int:song_id>")
+@app.route("/songs/edit/<int:song_id>")
 def edit_song(song_id):
     if "user_id" not in session:
         return redirect("/")
@@ -52,7 +50,7 @@ def edit_song(song_id):
 
 
 #! update song post
-@app.post("/songs/update")
+@app.route("/songs/update")
 def update_song():     
     song_id = request.form["song_id"]
     if not song.Song.validate_song_info(request.form):
@@ -63,7 +61,7 @@ def update_song():
 
 
 #! delete song by song_id
-@app.get("/songs/delete/<int:song_id>")
+@app.route("/songs/delete/<int:song_id>")
 def delete_song(song_id):
     if "user_id" not in session:
         return redirect("/")

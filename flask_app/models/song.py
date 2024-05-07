@@ -9,9 +9,7 @@ class Song:
     def __init__(self, data):
         self.id = data["id"]
         self.title = data["title"]
-        self.network = data["network"]
-        self.release_date = data["release_date"]
-        self.comments = data["comments"]
+        self.artist = data["artist"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
         # 'None' represents empty space for single user dict
@@ -23,8 +21,8 @@ class Song:
     @classmethod
     def save(cls, data):
         query = """
-            INSERT INTO songs (user_id, title, network, release_date, comments)
-            VALUES (%(user_id)s, %(title)s, %(network)s, %(release_date)s, %(comments)s);
+            INSERT INTO songs (user_id, title, artist)
+            VALUES (%(user_id)s, %(title)s, %(artist)s);
         """
         results = connectToMySQL(cls.dB).query_db(query, data)
         return results
@@ -64,7 +62,7 @@ class Song:
     def update(cls, data):
         query = """
             UPDATE songs
-            SET title = %(title)s, network = %(network)s, release_date = %(release_date)s, comments = %(comments)s
+            SET title = %(title)s, artist = %(artist)s
             WHERE id = %(song_id)s;
         """
         results = connectToMySQL(cls.dB).query_db(query, data)
@@ -89,7 +87,7 @@ class Song:
         
         is_valid = True
         
-        if len(data["title"].strip()) == 0 and len(data["network"].strip()) == 0 and len(data["release_date"]) == 0 and len(data["comments"].strip()) == 0:
+        if len(data["title"].strip()) == 0 and len(data["artist"].strip()) == 0:
             flash("All fields required.", "song_info")
             is_valid = False
             return is_valid
@@ -98,16 +96,8 @@ class Song:
             flash("Title must be at least 3 characters long.", "song_info")
             is_valid = False
             
-        if len(data["network"].strip()) < 3:
-            flash("Network name must be at least 3 characters long.", "song_info")
+        if len(data["artist"].strip()) < 3:
+            flash("Artist name must be at least 3 characters long.", "song_info")
             is_valid = False
-            
-        if len(data["comments"].strip()) < 3:
-            flash("Comments must be at least 3 characters long.", "song_info")
-            is_valid = False
-            
-        if len(data["release_date"]) == 0:
-            flash("Release date must be filled.", "song_info")
-            is_valid = False
-        
+                    
         return is_valid
