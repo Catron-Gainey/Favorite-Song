@@ -50,14 +50,14 @@ def edit_song(song_id):
 
 
 #! update song post
-@app.route("/songs/update")
+@app.route("/songs/update", methods=['POST'])
 def update_song():     
     song_id = request.form["song_id"]
     if not song.Song.validate_song_info(request.form):
         return redirect(f"/songs/edit/{song_id}")
     
     song.Song.update(request.form)
-    return redirect("/songs")
+    return redirect("/dashboard")
 
 
 #! delete song by song_id
