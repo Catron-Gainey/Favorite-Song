@@ -14,24 +14,49 @@
         <div class="row mt-5">
             <div class="col-6 text-end"></div>
             <div class="col text-end">
-                <a href="/songs" class="p-2 m-2">Songs</a>
+                <a href="/dashboard" class="p-2 m-2">Songs</a>
                 <a href="/destroy" class="p-2 m-2">Logout</a>
             </div>
         </div>
 
         <div class="card mt-3 p-4 border-black border border-2">
-
-            {% for song in user.tv_song: %}
+            {% for song in user.fav_song: %}
             <div class="card-title">
+                <p class="fs-2">
+                    {% if user.id != session["user_id"]: %}
+                        {{ user.first_name }} Likes:
+                    {% endif %}
+                    {% if user.id == session["user_id"]: %}
+                        You like:
+                    {% endif %}
+                </p>
                 <h1 class="fs-1">{{ song.title }}</h1>
-                <p class="fs-4 fst-italic">Recommended By: {{ user.first_name }} {{ user.last_name }}</p>
+                <p class="fs-4 fst-italic">by {{ song.artist }} </p>
             </div>
-
-            <p><strong>Network:</strong> {{ song.network }}</p>
-            <p><strong>Release Date:</strong> {{ song.release_date.strftime("%B %-d, %Y") }}</p>
-            <p><strong>{{ user.first_name }}'s Comments:</strong></p>
-            <p>{{ song.comments }}</p>
             {% endfor %}
+
+            <div class="container-sm">
+                <div class="row border border-black rounded flex">
+                    <div class="col-auto">
+                        <p class="fs-4">
+                            {% if user.id != session["user_id"]: %}
+                                <p>{{ user.first_name }}'s Liked Songs:</p>
+                            {% endif %}
+                            {% if user.id == session["user_id"]: %}
+                                <p>Your Liked Songs:</p>
+                            {% endif %}
+                        </p>
+
+                        {%for song in all_the_songs:%}
+                        {% if song.viewer.id == user.id: %}
+                        {% if song.title: %}
+                        <p>{{song.title}}</p>
+                        {% endif %}
+                        {% endif %}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

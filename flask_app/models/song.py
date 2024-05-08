@@ -56,7 +56,7 @@ class Song:
             one_song.viewer = owner
             all_songs.append(one_song)
         return all_songs
-    
+
     # UPDATE
     @classmethod
     def update(cls, data):

@@ -35,7 +35,8 @@ def view_song(song_id):
         return redirect("/")
 
     one_user = user.User.get_user_with_song(song_id)
-    return render_template("view_song.html", user=one_user)
+    all_the_songs = song.Song.get_all_songs_with_user()
+    return render_template("view_song.html", user=one_user, all_the_songs=all_the_songs)
 
 
 #! edit song page
@@ -50,14 +51,14 @@ def edit_song(song_id):
 
 
 #! update song post
-@app.route("/songs/update")
+@app.post("/songs/update")
 def update_song():     
     song_id = request.form["song_id"]
     if not song.Song.validate_song_info(request.form):
         return redirect(f"/songs/edit/{song_id}")
     
     song.Song.update(request.form)
-    return redirect("/songs")
+    return redirect("/dashboard")
 
 
 #! delete song by song_id
@@ -67,4 +68,4 @@ def delete_song(song_id):
         return redirect("/")
     
     song.Song.destroy_by_song_id(song_id)
-    return redirect("/songs")
+    return redirect("/dashboard")
