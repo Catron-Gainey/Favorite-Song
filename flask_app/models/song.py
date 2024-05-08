@@ -92,12 +92,12 @@ class Song:
             is_valid = False
             return is_valid
             
-        if len(data["title"].strip()) < 3:
-            flash("Title must be at least 3 characters long.", "song_info")
+        if len(data["title"].strip()) < 2:
+            flash("Title must be at least 2 characters long.", "song_info")
             is_valid = False
             
-        if len(data["artist"].strip()) < 3:
-            flash("Artist name must be at least 3 characters long.", "song_info")
+        if len(data["artist"].strip()) < 2:
+            flash("Artist name must be at least 2 characters long.", "song_info")
             is_valid = False
                     
         return is_valid
