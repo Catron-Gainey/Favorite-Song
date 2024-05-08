@@ -21,16 +21,11 @@
 
         <div class="card mt-3 p-4 border-black border border-2">
 
-            {% for song in user.tv_song: %}
+            {% for song in user.fav_song: %}
             <div class="card-title">
                 <h1 class="fs-1">{{ song.title }}</h1>
-                <p class="fs-4 fst-italic">Recommended By: {{ user.first_name }} {{ user.last_name }}</p>
+                <p class="fs-4 fst-italic">Recommended By: {{ song.artist }} </p>
             </div>
-
-            <p><strong>Network:</strong> {{ song.network }}</p>
-            <p><strong>Release Date:</strong> {{ song.release_date.strftime("%B %-d, %Y") }}</p>
-            <p><strong>{{ user.first_name }}'s Comments:</strong></p>
-            <p>{{ song.comments }}</p>
             {% endfor %}
         </div>
 

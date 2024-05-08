@@ -33,7 +33,7 @@
         <form action="/songs/update" method="post" class="p-4 col-7 mx-2 text-black">
             <input type="hidden" name="user_id" value="{{ user.id }}" class="form-control">
 
-            {% for song in user.tv_song %}
+            {% for song in user.fav_song %}
             <input type="hidden" name="song_id" value="{{ song.id }}" class="form-control">
 
             <div class="row g-3 align-items-center mb-4">
@@ -47,30 +47,10 @@
 
             <div class="row g-3 align-items-center mb-4">
                 <div class="col-3">
-                    <label for="network" class="col-form-label">Network:</label>
+                    <label for="artist" class="col-form-label">Artist:</label>
                 </div>
                 <div class="col-9">
-                    <input type="text" name="network" value="{{ song.network }}" class="form-control border-black">
-                </div>
-            </div>
-
-            <div class="row g-3 align-items-center mb-4">
-                <div class="col-3">
-                    <label for="release_date" class="col-form-label">Release Date:</label>
-                </div>
-                <div class="col-9">
-                    <input type="date" name="release_date" value="{{ song.release_date }}"
-                        class="form-control border-black">
-                </div>
-            </div>
-
-            <div class="row g-3 align-items-center mb-4">
-                <div class="col-3">
-                    <label for="comments" class="col-form-label">Comments:</label>
-                </div>
-                <div class="col-9">
-                    <textarea name="comments" id="comments" cols="20" rows="3"
-                        class="form-control border-black">{{ song.comments }}</textarea>
+                    <input type="text" name="artist" value="{{ song.artist }}" class="form-control border-black">
                 </div>
             </div>
             {% endfor %}
