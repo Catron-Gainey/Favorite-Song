@@ -35,7 +35,7 @@
 
     <div class="container-sm pt-3 pb-3">
         <div class="row flex justify-content-sm-center align-items-start">
-            <div class="col-sm-8 border-top rounded border-info">
+            <div class="col-sm-8 border rounded border-info">
                 <div class="table-responsive-md">
                     <table class="m-0 fw-lighter lh-sm table table-dark table-striped-columns table-hover align-middle">
                         <thead>
@@ -48,18 +48,22 @@
                         <tbody>
                             {% for one_song in all_the_songs: %}
                             <tr>
-                                <td class="col-md-8">
-                                    <a href="/songs/view/{{ one_song.id }}" class="text-info text-decoration-none">{{ one_song.title }}</a>
+                                <td class="col-md-7">
+                                    <a href="/songs/view/{{ one_song.id }}" class="text-info text-decoration-none">{{
+                                        one_song.title }}</a>
                                 </td>
-                                <td class="col-md-2">{{ one_song.artist }}</td>
+                                <td class="col-md-3">{{ one_song.artist }}</td>
                                 <td class="col-md-1">
                                     <div class="d-grid d-md-flex gap-2 justify-content-sm-center">
                                         {% if one_song.viewer.id == user.id: %}
-                                        <a href="/songs/edit/{{ one_song.id }}" class="btn btn-sm btn-outline-light text-decoration-none">Edit</a>
-                                        <a href="/songs/delete/{{ one_song.id }}" class="btn btn-sm btn-outline-light text-decoration-none">Delete</a>
+                                        <a href="/songs/edit/{{ one_song.id }}"
+                                            class="btn btn-sm btn-outline-light text-decoration-none">Edit</a>
+                                        <a href="/songs/delete/{{ one_song.id }}"
+                                            class="btn btn-sm btn-outline-light text-decoration-none">Delete</a>
                                         {% endif %}
                                         {% if one_song.viewer.id != user.id: %}
-                                        <a href="/songs/view/{{ one_song.id }}" class="btn btn-sm btn-outline-light text-decoration-none">View</a>
+                                        <a href="/songs/view/{{ one_song.id }}"
+                                            class="btn btn-sm btn-outline-light text-decoration-none">View</a>
                                         {% endif %}
                                     </div>
                                 </td>
