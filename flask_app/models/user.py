@@ -144,7 +144,7 @@ class User:
             is_valid = False
             
         # pw and confirm_pw match
-        if data["password"] != data["confirm_password"]:
+        if data["password"] != data["confirm_pw"]:
             flash("Password does not match.", "register")
             is_valid = False
             
