@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* border: 1px cyan solid; */
+}
+
+body {
+    color: darkgrey;
+}
+
+body::-webkit-scrollbar {
+    display:none;
+}
+
+.logo {
+    color: rgb(255, 255, 255);
+    word-wrap: normal;
+}
+
+.form-control::placeholder {
+    color: grey;
+}
+
+.footnote {
+    font-size: 12px;
+}
+
+.table th {
+    font-weight: normal;
+    padding: 5px 10px;
+}
+
+.table td {
+    padding: 5px 10px;
+}
+
+tbody tr {
+    height: 50px;
+}
+
+.test {
+    margin-top: 3px;
+}

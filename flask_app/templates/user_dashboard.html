@@ -7,48 +7,75 @@
     <title>Favorite Song</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my_style.css') }}" type="text/css">
 </head>
 
-<body>
-    <div class="container-sm col-8">
-        <p class="mt-4 fs-2 fw-semibold text-capitalize">Welcome, {{ user.first_name }}!</p>
-
-        <div class="row flex">
-            <p class="fs-3 col-6">All Songs:</p>
-            <div class="col text-end">
-                <a href="/songs/new" class="p-2 m-4">Create</a>
-                <a href="/destroy" class="p-2 m-4">Logout</a>
+<body class="bg-dark">
+    <div class="container-fluid">
+        <header class="row flex justify-content-md-start align-items-center mb-4">
+            <div class="col-auto">
+                <p class="fs-4 m-2 fw-lighter text-lowercase logo">Favorite<span class="fw-medium">Song</span></p>
             </div>
-
-        </div>
-
-        <table class="table table-bordered border border-black table-hover">
-            <thead class="border border-black">
-                <tr class="table-dark">
-                    <th>Title</th>
-                    <th>Artist</th>
-                    <th>More</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for one_song in all_the_songs: %}
-                <tr>
-                    <td><a href="/songs/view/{{ one_song.id}}">{{ one_song.title }}</a></td>
-                    <td>{{ one_song.artist }}</td>
-                    <td class="text-center">
-                        {% if one_song.viewer.id == user.id: %}
-                        <a href="/songs/delete/{{ one_song.id }}" class="p-2">Delete</a>
-                        <a href="/songs/edit/{{ one_song.id }}" class="p-2">Edit</a>
-                        {% endif %}
-                        {% if one_song.viewer.id != user.id: %}
-                        <a href="/songs/view/{{ one_song.id}}" class="p-2">Details</a>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        </header>
     </div>
+    <!-- End Header -->
+
+    <div class="container-sm">
+        <div class="row flex justify-content-sm-center align-items-center">
+            <div class="col-sm-5 bg-black border border-black rounded">
+                <p class="fs-4 fw-light p-0 m-0 text-dark-emphasis">{{ user.first_name }} {{user.last_name}}</p>
+            </div>
+            <div class="col-sm-3 d-grid d-md-flex gap-3 justify-content-sm-end">
+                <a href="/songs/new" class="btn btn-outline-info btn-sm">add song</a>
+                <a href="/destroy" class="btn btn-outline-info btn-sm">logout</a>
+            </div>
+        </div>
+    </div>
+    <!-- End Subheader content -->
+
+    <div class="container-sm pt-3 pb-3">
+        <div class="row flex justify-content-sm-center align-items-start">
+            <div class="col-sm-8 border rounded border-info">
+                <div class="table-responsive-md">
+                    <table class="m-0 fw-lighter lh-sm table table-dark table-striped-columns table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for one_song in all_the_songs: %}
+                            <tr>
+                                <td class="col-md-7">
+                                    <a href="/songs/view/{{ one_song.id }}" class="text-info text-decoration-none">{{
+                                        one_song.title }}</a>
+                                </td>
+                                <td class="col-md-3">{{ one_song.artist }}</td>
+                                <td class="col-md-1">
+                                    <div class="d-grid d-md-flex gap-2 justify-content-sm-center">
+                                        {% if one_song.viewer.id == user.id: %}
+                                        <a href="/songs/edit/{{ one_song.id }}"
+                                            class="btn btn-sm btn-outline-light text-decoration-none">Edit</a>
+                                        <a href="/songs/delete/{{ one_song.id }}"
+                                            class="btn btn-sm btn-outline-light text-decoration-none">Delete</a>
+                                        {% endif %}
+                                        {% if one_song.viewer.id != user.id: %}
+                                        <a href="/songs/view/{{ one_song.id }}"
+                                            class="btn btn-sm btn-outline-light text-decoration-none">View</a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Table content -->
 </body>
 
 </html>

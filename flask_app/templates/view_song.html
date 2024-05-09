@@ -7,29 +7,72 @@
     <title>Favorite Song</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my_style.css') }}" type="text/css">
 </head>
 
-<body>
-    <div class="container col-6">
-        <div class="row mt-5">
-            <div class="col-6 text-end"></div>
-            <div class="col text-end">
-                <a href="/dashboard" class="p-2 m-2">Songs</a>
-                <a href="/destroy" class="p-2 m-2">Logout</a>
+<body class="bg-dark">
+    <div class="container-fluid">
+        <header class="row flex justify-content-md-start align-items-center mb-4">
+            <div class="col-auto">
+                <p class="fs-4 m-2 fw-lighter text-lowercase logo">Favorite<span class="fw-medium">Song</span></p>
             </div>
-        </div>
-
-        <div class="card mt-3 p-4 border-black border border-2">
-
-            {% for song in user.fav_song: %}
-            <div class="card-title">
-                <h1 class="fs-1">{{ song.title }}</h1>
-                <p class="fs-4 fst-italic">Recommended By: {{ song.artist }} </p>
-            </div>
-            {% endfor %}
-        </div>
-
+        </header>
     </div>
+    <!-- End Header -->
+
+    <div class="container-sm">
+        <div class="row flex justify-content-sm-center align-items-center">
+            <div class="col-sm-5 text-start bg-dark border border-dark rounded">
+                <p class="fs-4 fw-light p-0 m-0 text-dark-emphasis"></p>
+            </div>
+            <div class="col-sm-3 d-grid d-md-flex gap-3 justify-content-sm-end test">
+                <a href="/dashboard" class="btn btn-outline-info btn-sm">go back</a>
+                <a href="/destroy" class="btn btn-outline-info btn-sm">logout</a>
+            </div>
+        </div>
+    </div>
+    <!-- End Subheader content -->
+
+    <div class="container-sm">
+        <div class="row flex justify-content-sm-center align-items-start">
+            <div class="col-sm-8 mt-5 bg-black rounded pt-2 pb-4">
+                {% for song in user.fav_song: %}
+                <p class="fs-4 fw-medium p-0 m-0 mb-4 text-white">
+                    {% if user.id != session["user_id"]: %}
+                    {{ user.first_name }} Likes:
+                    {% endif %}
+
+                    {% if user.id == session["user_id"]: %}
+                    You like:
+                    {% endif %}
+                </p>
+                {% endfor %}
+
+                {% for song in user.fav_song: %}
+                <p class="mb-0 fs-2 fw-bold lh-sm text-white text-center">{{ song.title }}<br><span class="fs-4 fw-light fst-italic text-info">{{ song.artist }}</span></p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row flex justify-content-sm-center align-items-start mt-3">
+            <div class="col-sm-8 p-3">
+                <p class="mb-2 fs-5 text-white fw-semibold">Other Favorites:</p>
+
+                {%for song in all_the_songs:%}
+                    {% if song.viewer.id == user.id: %}
+                        {% if song.title: %}
+                            {% for a_song in user.fav_song: %}
+                                {% if song.id != a_song.id: %}
+                                     <p class="mb-2 lh-1">{{song.title}} <span class="fw-lighter">by {{ song.artist }}</span></p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
 </body>
 
 </html>

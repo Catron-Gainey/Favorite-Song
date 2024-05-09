@@ -35,7 +35,8 @@ class Song:
             SELECT *
             FROM songs
             LEFT JOIN users
-            ON songs.user_id = users.id;
+            ON songs.user_id = users.id
+            ORDER BY songs.id DESC;
         """
         results = connectToMySQL(cls.dB).query_db(query)
         all_songs = []
@@ -56,7 +57,7 @@ class Song:
             one_song.viewer = owner
             all_songs.append(one_song)
         return all_songs
-    
+
     # UPDATE
     @classmethod
     def update(cls, data):
@@ -92,12 +93,12 @@ class Song:
             is_valid = False
             return is_valid
             
-        if len(data["title"].strip()) < 3:
-            flash("Title must be at least 3 characters long.", "song_info")
+        if len(data["title"].strip()) < 2:
+            flash("Title must be at least 2 characters long.", "song_info")
             is_valid = False
             
-        if len(data["artist"].strip()) < 3:
-            flash("Artist name must be at least 3 characters long.", "song_info")
+        if len(data["artist"].strip()) < 2:
+            flash("Artist name must be at least 2 characters long.", "song_info")
             is_valid = False
                     
         return is_valid
