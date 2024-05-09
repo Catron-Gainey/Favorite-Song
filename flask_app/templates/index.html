@@ -23,18 +23,9 @@
     <div class="container-md">
         <div class="row flex justify-content-md-center align-items-start">
             <div class="col-md-4 mt-2 m-1 p-1">
-                <form action="/user/register" method="post" class="p-5 border-end border-info rounded">
+                <form action="/user/register" method="post" class="p-5 border-end border-info">
                     <p class="fs-2 lh-1 text-white fw-bold text-wrap mb-5">New? Sign up. Or...</p>
                     <!-- End Reg title -->
-
-                    {% with messages=get_flashed_messages(with_categories=true, category_filter=["register"]) %}
-                    <ul class="flashes text-danger list-unstyled">
-                        {% for category, message in messages: %}
-                        <li class="{{ category }} alert alert-danger p-1">{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endwith %}
-                    <!-- End Flash -->
 
                     <div class="form-group mb-3">
                         <input type="text" name="first_name" id="first_name"
@@ -58,25 +49,25 @@
                     </div>
                     <!-- End Form fields -->
 
-                    <div class="d-grid">
+                    <div class="d-grid gap-2">
                         <input type="submit" value="register" class="btn fs-6 text-capitalize btn-outline-info">
+
+                        {% with messages=get_flashed_messages(with_categories=true, category_filter=["register"]) %}
+                        <ul class="flashes text-danger m-0 p-0">
+                            {% for category, message in messages: %}
+                            <li class="{{ category }} list-unstyled fw-light">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endwith %}
+                        <!-- End Flash -->
                     </div>
                 </form>
             </div>
             <!-- End Reg form -->
             <div class="col-md-4 mt-2 m-1 p-1">
-                <form action="/user/login" method="post" class="p-5 border-start border-info rounded">
+                <form action="/user/login" method="post" class="p-5 border-start border-info">
                     <p class="fs-2 lh-1 text-white fw-bold text-wrap mb-5">Returning? Login.</p>
                     <!-- End Login title -->
-
-                    {% with messages=get_flashed_messages(with_categories=true, category_filter=["login"]) %}
-                    <ul class="flashes text-danger list-unstyled">
-                        {% for category, message in messages: %}
-                        <li class="{{ category }} alert alert-danger p-1">{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endwith %}
-                    <!-- End Flash -->
 
                     <div class="form-group mb-3">
                         <input type="text" name="email" id="email"
@@ -88,8 +79,17 @@
                     </div>
                     <!-- End Form fields -->
 
-                    <div class="d-grid">
+                    <div class="d-grid gap-2">
                         <input type="submit" value="login" class="btn fs-6 text-capitalize btn-info">
+
+                        {% with messages=get_flashed_messages(with_categories=true, category_filter=["login"]) %}
+                        <ul class="flashes text-danger m-0 p-0">
+                            {% for category, message in messages: %}
+                            <li class="{{ category }} list-unstyled fw-light">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endwith %}
+                        <!-- End Flash -->
                     </div>
                 </form>
             </div>
