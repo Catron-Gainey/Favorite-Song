@@ -51,7 +51,7 @@ def edit_song(song_id):
 
 #! update song post
 @app.post("/songs/update")
-def update_song():
+def update_song():  
     song_id = request.form["song_id"]
     if not song.Song.validate_song_info(request.form):
         return redirect(f"/songs/edit/{song_id}")
