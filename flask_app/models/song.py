@@ -35,7 +35,8 @@ class Song:
             SELECT *
             FROM songs
             LEFT JOIN users
-            ON songs.user_id = users.id;
+            ON songs.user_id = users.id
+            ORDER BY songs.id DESC;
         """
         results = connectToMySQL(cls.dB).query_db(query)
         all_songs = []
